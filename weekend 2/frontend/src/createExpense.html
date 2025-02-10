@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>New Expense</title>
+  </head>
+  <body
+    class="max-w-screen px-48 py-24 flex flex-col justify-center items-center"
+  >
+    <div
+      class="bg-yellow-300 p-15 rounded-lg border-1 border-black w-full h-full"
+    >
+      <div class="w-full flex flex-row justify-start gap-2 items-start">
+        <a href="./dashboard.html" class="rounded-lg bg-green-300 hover:bg-green-500 border-1 border-black px-5 py-3 mb-5 mr-5">Go Back</a>
+        <h1 class="text-4xl">New Expense</h1>
+      </div>
+      <div class="flex flex-col gap-3 mt-5 w-full">
+        <div class="flex flex-col">
+          <label for="amount">Amount</label>
+          <input
+            type="number"
+            name="amount"
+            id="amount"
+            class="border-1 rounded-lg px-5 py-3"
+            placeholder="Amount"
+          />
+        </div>
+        <div class="flex flex-col">
+          <label for="narration">Narration</label>
+          <textarea
+            placeholder="Narration"
+            id="narration"
+            class="border-1 rounded-lg px-5 py-3"
+          ></textarea>
+        </div>
+        <div>
+          <label for="transactionDate">Select Date</label>
+          <input type="datetime-local" name="transactionDate" id="transactionDate" class="border-1 rounded-lg px-5 py-3" />
+        </div>
+        <div>
+          <button
+            type="button"
+            onclick="createTransaction()"
+            name="submit"
+            id="submit"
+            class="rounded-lg bg-green-300 hover:bg-green-500 border-1 border-black px-5 py-3 mb-5 mr-5"
+          >
+            Submit
+          </button>
+        </div>
+      </div>
+    </div>
+    <script>
+      const createTransaction = () => {
+        const narration = document.getElementById("narration").value;
+        const value = Number(document.getElementById("amount").value);
+        const transactionDate = document.getElementById("transactionDate").value;
+        let data = sessionStorage.getItem("transactions");
+        if(data){
+          data = JSON.parse(data);
+          data.push([transactionDate, narration, value]);
+          data = JSON.stringify(data);
+          sessionStorage.setItem("transactions", data);
+          let localBalance = Number(sessionStorage.getItem("balance")) + Number(value);
+          sessionStorage.setItem("balance", localBalance);
+          window.alert("Transaction created successfully");
+        } else {
+          window.alert("No data found");
+        }
+      };
+    </script>
+  </body>
+</html>

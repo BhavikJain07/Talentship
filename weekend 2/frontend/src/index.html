@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Personal Expense Tracker</title>
+  </head>
+  <body
+    onload="createDatabase()"
+    class="max-w-screen max-h-screen px-48 py-24 flex flex-col gap-4 justify-center items-center"
+  >
+
+    <video class="absolute top-0 left-0 -z-1" autoplay muted loop>
+      <source src="./assets/WALLXT.mp4" type="video/mp4" />
+    </video>
+
+    <div
+      class="z-1 w-full h-full bg-yellow-300 rounded-lg p-15 flex flex-col gap-4 justify-center items-center border-1 border-black"
+    >
+      <h1 class="text-8xl">Welcome to WALLXT</h1>
+    </div>
+    <div>
+      <a
+        href="dashboard.html"
+        class="bg-green-300 px-5 py-2 border-1 border-black rounded-lg hover:bg-green-500"
+        >Get Started</a
+      >
+    </div>
+
+    <script>
+      const createDatabase = () => {
+        sessionStorage.setItem("transactions", JSON.stringify([]));
+        sessionStorage.setItem("balance", 0);
+      };
+    </script>
+  </body>
+</html>
