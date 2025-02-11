@@ -9,3 +9,5 @@ For Serving
 1. Build the project
 `npm run build`
 2. Find the build files in the dist folder
+
+Netlify Link: https://wallxt.netlify.app/

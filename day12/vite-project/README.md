@@ -9,3 +9,5 @@ Steps to run
 
 3. Open browser
 `http://localhost:5173`
+
+Netlify Link: https://todxsapp.netlify.app/
