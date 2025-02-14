@@ -1,1 +1,1 @@
-A simple Express server with Typescript for user management with Prisma with API token Authentication.
+A simple Express server with Typescript for user management with Prisma.
