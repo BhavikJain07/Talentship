@@ -12,10 +12,19 @@
   >
     <div class="flex flex-row justify-between w-full gap-1 items-center">
       <div class="w-1.5/10">
-        <a href="./index.html" class="rounded-lg bg-green-300 hover:bg-green-500 border-1 border-black px-5 py-3 mb-5 mr-5">Home</a>
+        <a
+          href="./index.html"
+          class="rounded-lg bg-green-300 hover:bg-green-500 border-1 border-black px-5 py-3 mb-5 mr-5"
+          >Home</a
+        >
       </div>
       <div class="w-1.5/10 flex flex-row justify-between items-center">
-        <h2 class="rounded-lg bg-yellow-300 border-1 border-black px-5 py-3 flex flex-row">Balance: <p id="balance"></p></h2>
+        <h2
+          class="rounded-lg bg-yellow-300 border-1 border-black px-5 py-3 flex flex-row"
+        >
+          Balance:
+          <p id="balance"></p>
+        </h2>
       </div>
     </div>
     <div class="rounded-lg">
@@ -26,14 +35,13 @@
         >
           <thead class="text-xs text-black uppercase bg-yellow-300">
             <tr>
-              <th scope="col" class="px-6 py-3">S.No</th>
+              <th scope="col" class="px-6 py-3">Transaction ID</th>
+              <th scope="col" class="px-6 py-3">Coins</th>
+              <th scope="col" class="px-6 py-3">Receiver</th>
               <th scope="col" class="px-6 py-3">Date</th>
-              <th scope="col" class="px-6 py-3">Narration</th>
-              <th scope="col" class="px-6 py-3">Effect</th>
             </tr>
           </thead>
-          <tbody class="tableBody">
-          </tbody>
+          <tbody class="tableBody"></tbody>
         </table>
       </div>
     </div>
@@ -48,14 +56,21 @@
     </div>
     <!-- Fetch and add data to table -->
     <script>
-      const createTable = (query) => {
-        let data = sessionStorage.getItem("transactions");
+      const createTable = async (query) => {
+        let d = await fetch("http://localhost:8000/transactions").then((res) =>
+          res.json()
+        );
+        let data = d.response.data;
         if (data) {
-          data = JSON.parse(data);
           for (let i = 0; i < data.length; i++) {
             let table = document.getElementById("transactionsTable");
             let row = table.insertRow(-1);
-            row.classList.add("odd:bg-white", "even:bg-gray-50", "border-b", "border-gray-200");
+            row.classList.add(
+              "odd:bg-white",
+              "even:bg-gray-50",
+              "border-b",
+              "border-gray-200"
+            );
             let cell1 = row.insertCell(0);
             cell1.classList.add("px-6", "py-4");
             let cell2 = row.insertCell(1);
@@ -64,10 +79,10 @@
             cell3.classList.add("px-6", "py-4");
             let cell4 = row.insertCell(3);
             cell4.classList.add("px-6", "py-4");
-            cell1.innerHTML = i + 1;
-            cell2.innerHTML = data[i][0];
-            cell3.innerHTML = data[i][1];
-            cell4.innerHTML = data[i][2];
+            cell1.innerHTML = data[i].id;
+            cell2.innerHTML = data[i].amount + "WXT";
+            cell3.innerHTML = data[i].receiver;
+            cell4.innerHTML = data[i].createdAt;
           }
         } else {
           console.log("No Transactions");
@@ -75,8 +90,9 @@
       };
 
       let balance = sessionStorage.getItem("balance");
-      console.log(balance);
       document.getElementById("balance").innerText = balance;
+
+      // let b = await fetch("http://localhost:8000/balance");
     </script>
   </body>
 </html>
